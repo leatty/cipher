@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Cipher</title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/spop.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div class="container">
+        <h1>Cipher</h1>
+        <form class="form">
+            <div><input type="text" id="result"></input></div>
+            <br>
+            <input type="button" id="encrypt" value="encrypt">
+            <input type="button" id="decrypt" value="decrypt">
+
+
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.copy.js"></script>
+<script type="text/javascript" src="js/spop.js"></script>
+<script type="text/javascript" src="js/trans.js"></script>
+
+<script type="text/javascript">
+
+    //加密按钮点击事件
+    $("#encrypt").click(function () {
+        var msg = $("#result").val();
+        console.log("[encrypt] msg before encrypt: " + msg);
+        if(msg == ""){
+            spop({
+                template: '请输入转换内容',
+                autoclose: 1000,
+                style: 'warning',
+            });
+        }else{
+            msg = encrypt(msg);
+            console.log("[encrypt] msg after encrypt: " + msg);
+            $("#result").val(msg);
+            $.copy(msg);
+            spop({
+                template: '转换成功，已复制到剪贴板',
+                autoclose: 1000	,
+                style: 'success',
+            });
+        }
+
+    });
+
+
+    //解密按钮点击事件
+    $("#decrypt").click(function () {
+        var msg = $("#result").val();
+        console.log("[decrypt] msg before decrypt: " + msg);
+        if(msg == ""){
+            spop({
+                template: '请输入转换内容',
+                autoclose: 1000,
+                style: 'warning',
+            });
+        }else{
+            msg = decrypt(msg);
+            console.log("[decrypt] msg after decrypt: " + msg);
+            $("#result").val(msg);
+            $.copy(msg);
+            spop({
+                template: '转换成功，已复制到剪贴板',
+                autoclose: 1000	,
+                style: 'success',
+            });
+        }
+
+    });
+
+
+/*
+    //加密按钮点击事件
+    $("#encrypt").click(function () {
+        var msg = $("#result").val();
+        console.log("[encrypt] msg before encrypt: " + msg);
+        if(msg == ""){
+            spop({
+                template: '请输入转换内容',
+                autoclose: 1000,
+                style: 'warning',
+            });
+        }else{
+            $.ajax({
+                url:"cipher_encrypt.action",
+                type:"post",
+                // dataType:"json",  //不是json的话，删除这里
+                data:  {
+                    msg:msg,
+                },  //这里是传参数的地方
+                async: true,
+                success: function(msg){
+                    console.log("[encrypt] msg after encrypt: " + msg);
+                    $("#result").val(msg);
+                    $.copy(msg);
+                    spop({
+                        template: '转换成功，已复制到剪贴板',
+                        autoclose: 1000	,
+                        style: 'success',
+                    });
+                },// 这里接收后台数据
+                error:function(){
+                    spop({
+                        template: '转换过程出错',
+                        autoclose: 1000,
+                        style: 'error',
+                    });
+                } //error结束
+            })
+        }
+
+    });
+
+
+    //解密按钮点击事件
+    $("#decrypt").click(function () {
+        var msg = $("#result").val();
+        console.log("[decrypt] msg before decrypt: " + msg);
+        if(msg == ""){
+            spop({
+                template: '请输入转换内容',
+                autoclose: 1000,
+                style: 'warning',
+            });
+        }else{
+            $.ajax({
+                url:"cipher_decrypt.action",
+                type:"post",
+                // dataType:"json",  //不是json的话，删除这里
+                data:  {
+                    msg:msg,
+                },  //这里是传参数的地方
+                async: true,
+                success: function(msg){
+                    console.log("[decrypt] msg after decrypt: " + msg);
+                    $("#result").val(msg);
+                    $.copy(msg);
+                    spop({
+                        template: '转换成功，已复制到剪贴板',
+                        autoclose: 1000	,
+                        style: 'success',
+                    });
+                },// 这里接收后台数据
+                error:function(){
+                    spop({
+                        template: '转换过程出错',
+                        autoclose: 1000,
+                        style: 'error',
+                    });
+                } //error结束
+            })
+        }
+
+    });
+
+*/
+</script>
+
+</body>
+</html>
